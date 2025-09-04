@@ -1,4 +1,4 @@
-# Core ML and Data Science Libraries
+# Core ML and Data Science Libraries (Required for current notebooks)
 scikit-learn>=1.7.0
 numpy>=1.22.0
 pandas>=2.0.0
@@ -10,21 +10,25 @@ jupyter>=1.0.0
 jupyterlab>=4.0.0
 jupyter_contrib_nbextensions>=0.7.0
 nbstripout>=0.6.0
-
-# AWS SDK and AI Services
-boto3>=1.28.0
-awscli>=2.13.0
+ipykernel>=6.0.0
 
 # Development and Code Quality
 black>=23.0.0
 flake8>=6.0.0
 pytest>=7.0.0
 pre-commit>=3.0.0
+isort>=5.12.0
 
-# Additional ML Libraries (optional but useful)
-plotly>=5.15.0
+# Additional ML Libraries (used in notebooks)
 scipy>=1.10.0
 ipywidgets>=8.0.0
+
+# AWS SDK and AI Services (for future sessions)
+boto3>=1.28.0
+awscli>=2.13.0
+
+# Optional Visualization Libraries
+plotly>=5.15.0
 
 # Environment and Configuration
 python-dotenv>=1.0.0
