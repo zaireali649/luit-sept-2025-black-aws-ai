@@ -34,7 +34,7 @@ This repository contains hands-on learning materials for the AWS Certified AI Pr
 
 ### Completed Learning Outcomes ✅
 
-After completing the first two sessions, you will be able to:
+After completing the first three sessions, you will be able to:
 
 - **Understand AI/ML Fundamentals**: Differentiate between AI, ML, Deep Learning, and Generative AI
 - **Classification Concepts**: Distinguish between supervised vs unsupervised learning, and classification vs regression
@@ -45,14 +45,21 @@ After completing the first two sessions, you will be able to:
 - **Hands-on Skills**: Build, train, and evaluate ML models using scikit-learn
 - **Data Analysis**: Work with real datasets (Iris, Titanic) and perform exploratory data analysis
 - **Model Interpretation**: Understand overfitting, underfitting, and feature importance
+- **Cloud ML Training**: Deploy and manage ML training jobs using Amazon SageMaker
+- **AWS Infrastructure**: Set up SageMaker Studio domains using CloudFormation templates
+- **S3 Integration**: Upload datasets and retrieve model artifacts from S3 buckets
+- **Managed Training**: Use SKLearn Estimator for scalable, reproducible model training
+- **Cloud Monitoring**: Monitor training jobs through CloudWatch logs and metrics
+- **Secure ML Workflows**: Understand IAM roles and permissions for ML operations
 
 ### Future Learning Goals 🎯
 
 Additional objectives will be added as the course progresses, including:
 - Advanced ML techniques and algorithms
-- AWS AI services integration
+- Additional AWS AI services integration
 - MLOps and deployment practices
 - Deep learning and neural networks
+- Model deployment and inference endpoints
 
 ## 📚 Prerequisites
 
@@ -128,11 +135,22 @@ luit-sept-2025-black-aws-ai/
 │   ├── caip_week1_call1.ipynb       # Introduction to AI/ML fundamentals
 │   ├── *.png                        # Supporting images and diagrams
 │   └── caip_week1_call1_intro_to_ai_ml.pdf  # Reference materials
-└── caip_01_02/                       # Week 1, Call 2 materials
-    ├── caip_week1_call2.ipynb       # Model evaluation and metrics
-    ├── caip01_week1_call2.pdf       # Reference materials
-    ├── train.csv                    # Titanic training dataset
-    └── test.csv                     # Titanic test dataset
+├── caip_01_02/                       # Week 1, Call 2 materials
+│   ├── caip_week1_call2.ipynb       # Model evaluation and metrics
+│   ├── caip01_week1_call2.pdf       # Reference materials
+│   ├── train.csv                    # Titanic training dataset
+│   └── test.csv                     # Titanic test dataset
+└── caip_02_01/                       # Week 2, Call 1 materials
+    ├── caip_week2_call1.ipynb       # Train and evaluate in the cloud
+    ├── caip_week2_call1.pdf         # Reference materials
+    ├── cf_templates/                # CloudFormation templates
+    │   └── sagemaker_infra.yaml     # SageMaker infrastructure setup
+    ├── train_model.py               # Training script for SageMaker
+    ├── requirements.in              # Training script dependencies
+    ├── cleaned_titanic.csv          # Preprocessed dataset
+    ├── train.csv                    # Original training data
+    ├── test.csv                     # Original test data
+    └── *.png                        # Supporting images and diagrams
 ```
 
 ## 🗺️ Learning Path
@@ -168,6 +186,26 @@ luit-sept-2025-black-aws-ai/
   - Built and evaluated classification models
   - Computed and visualized evaluation metrics
   - Interpreted classification reports and confusion matrices
+
+### Week 2: Cloud-Based ML with AWS SageMaker
+
+#### Call 1: Train and Evaluate in the Cloud ✅ *Completed*
+- 📓 [`caip_02_01/caip_week2_call1.ipynb`](caip_02_01/caip_week2_call1.ipynb)
+- **Topics Covered:**
+  - Benefits of cloud-based ML training (scalability, reproducibility, separation of concerns)
+  - Infrastructure setup using CloudFormation templates
+  - SageMaker Studio domain and IAM role configuration
+  - S3 integration for data storage and model artifacts
+  - SKLearn Estimator for managed training jobs
+  - CloudWatch logging and monitoring
+  - Secure ML workflows with proper permissions
+- **Hands-on Experience:**
+  - Deployed SageMaker infrastructure programmatically
+  - Uploaded datasets to S3 buckets
+  - Created and executed training scripts for SageMaker
+  - Launched managed training jobs using SKLearn Estimator
+  - Monitored training progress through CloudWatch logs
+  - Retrieved and analyzed model artifacts from S3
 
 ### Future Sessions
 *Content will be added as sessions are completed*

@@ -23,9 +23,10 @@ isort>=5.12.0
 scipy>=1.10.0
 ipywidgets>=8.0.0
 
-# AWS SDK and AI Services (for future sessions)
+# AWS SDK and AI Services (used in Week 2+)
 boto3>=1.28.0
 awscli>=2.13.0
+sagemaker>=2.190.0
 
 # Optional Visualization Libraries
 plotly>=5.15.0
