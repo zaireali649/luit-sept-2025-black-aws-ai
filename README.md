@@ -51,6 +51,14 @@ After completing the first three sessions, you will be able to:
 - **Managed Training**: Use SKLearn Estimator for scalable, reproducible model training
 - **Cloud Monitoring**: Monitor training jobs through CloudWatch logs and metrics
 - **Secure ML Workflows**: Understand IAM roles and permissions for ML operations
+- **Model Deployment**: Deploy trained models to real-time SageMaker endpoints
+- **Inference Types**: Understand real-time, batch, and async inference options
+- **Custom Inference Scripts**: Create custom inference.py scripts for data preprocessing
+- **Endpoint Management**: Deploy, test, and delete SageMaker endpoints programmatically
+- **Real-time Predictions**: Send test payloads and interpret prediction results
+- **Production Monitoring**: Access and review endpoint logs and metrics in CloudWatch
+- **Error Handling**: Identify common inference errors and performance metrics
+- **Cost Management**: Delete endpoints to avoid unnecessary charges
 
 ### Future Learning Goals 🎯
 
@@ -140,7 +148,7 @@ luit-sept-2025-black-aws-ai/
 │   ├── caip01_week1_call2.pdf       # Reference materials
 │   ├── train.csv                    # Titanic training dataset
 │   └── test.csv                     # Titanic test dataset
-└── caip_02_01/                       # Week 2, Call 1 materials
+├── caip_02_01/                       # Week 2, Call 1 materials
     ├── caip_week2_call1.ipynb       # Train and evaluate in the cloud
     ├── caip_week2_call1.pdf         # Reference materials
     ├── cf_templates/                # CloudFormation templates
@@ -151,6 +159,16 @@ luit-sept-2025-black-aws-ai/
     ├── train.csv                    # Original training data
     ├── test.csv                     # Original test data
     └── *.png                        # Supporting images and diagrams
+└── caip_02_02/                       # Week 2, Call 2 materials
+    ├── caip_week2_call2.ipynb       # Deploy and test ML endpoints
+    ├── caip_week2_call2.pdf         # Reference materials
+    ├── cf_templates/                # CloudFormation templates
+    │   └── sagemaker_infra.yaml     # SageMaker infrastructure setup
+    ├── inference.py                 # Custom inference script for endpoints
+    ├── cleaned_titanic.csv          # Preprocessed dataset
+    ├── inference_pipeline.png       # Real-time inference architecture diagram
+    ├── sagemaker_endpoint_logs.png  # CloudWatch logs screenshot
+    └── sagemaker_metrics.png        # CloudWatch metrics screenshot
 ```
 
 ## 🗺️ Learning Path
@@ -206,6 +224,26 @@ luit-sept-2025-black-aws-ai/
   - Launched managed training jobs using SKLearn Estimator
   - Monitored training progress through CloudWatch logs
   - Retrieved and analyzed model artifacts from S3
+
+#### Call 2: Deploy and Test Your First ML Endpoint ✅ *Completed*
+- 📓 [`caip_02_02/caip_week2_call2.ipynb`](caip_02_02/caip_week2_call2.ipynb)
+- **Topics Covered:**
+  - Real-time, batch, and async inference options in SageMaker
+  - Model artifact location and loading from S3
+  - Custom inference scripts for data preprocessing
+  - SKLearnModel deployment to real-time endpoints
+  - Endpoint invocation using boto3 and JSON payloads
+  - CloudWatch logs and metrics for endpoint monitoring
+  - Common inference errors and performance metrics
+  - Cost management through endpoint deletion
+- **Hands-on Experience:**
+  - Located and loaded trained model artifacts from S3
+  - Created custom inference.py script with model_fn and predict_fn
+  - Deployed scikit-learn model to real-time SageMaker endpoint
+  - Sent test payloads and interpreted prediction results
+  - Monitored endpoint performance through CloudWatch logs and metrics
+  - Identified and understood common inference errors
+  - Deleted endpoints to avoid unnecessary costs
 
 ### Future Sessions
 *Content will be added as sessions are completed*
