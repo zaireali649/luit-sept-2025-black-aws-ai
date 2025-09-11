@@ -15,6 +15,8 @@
 - [Environment Setup](#environment-setup)
 - [Project Structure](#project-structure)
 - [Learning Path](#learning-path)
+- [Week 1 ML Fundamentals & Assessment](#week-1-ml-fundamentals--assessment)
+- [Week 2 MLOps & DevOps Concepts](#week-2-mlops--devops-concepts)
 - [DevOps Best Practices](#devops-best-practices)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
@@ -247,6 +249,358 @@ luit-sept-2025-black-aws-ai/
 
 ### Future Sessions
 *Content will be added as sessions are completed*
+
+## 🏗️ Week 2 MLOps & DevOps Concepts
+
+### Overview of MLOps Implementation
+
+Week 2 introduced fundamental MLOps (Machine Learning Operations) concepts through hands-on implementation with Amazon SageMaker. The sessions demonstrated how to transition from local ML development to production-ready cloud-based ML workflows.
+
+### Infrastructure as Code (IaC) with CloudFormation
+
+**What We Implemented:**
+- **Automated Infrastructure Provisioning**: Used CloudFormation templates to create SageMaker Studio domains, IAM roles, and S3 buckets
+- **Programmatic Deployment**: Deployed infrastructure using `boto3` instead of manual AWS Console operations
+- **Reproducible Environments**: Ensured consistent infrastructure across different environments
+
+**Key Files:**
+- [`caip_02_01/cf_templates/sagemaker_infra.yaml`](caip_02_01/cf_templates/sagemaker_infra.yaml) - Complete infrastructure template
+- Infrastructure includes: SageMaker Studio Domain, IAM Execution Role, S3 Bucket, User Profile
+
+**DevOps Benefits:**
+- **Version Control**: Infrastructure changes tracked in Git
+- **Automation**: Eliminates manual setup errors
+- **Scalability**: Easy to replicate across regions/accounts
+- **Cost Control**: Automated cleanup prevents resource sprawl
+
+### MLOps Pipeline Components
+
+#### 1. **Data Management & Storage**
+```yaml
+Data Flow:
+Local CSV → S3 Bucket → SageMaker Training Job → Model Artifacts → S3 Storage
+```
+- **S3 Integration**: Centralized data storage for training datasets
+- **Artifact Management**: Automatic model artifact storage and versioning
+- **Data Preprocessing**: Consistent data cleaning and feature engineering
+
+#### 2. **Training Pipeline**
+```python
+# Training Script Structure
+train_model.py:
+├── Data Loading (from S3)
+├── Feature Engineering
+├── Model Training (Decision Tree)
+├── Model Evaluation (Metrics & Logging)
+└── Model Persistence (joblib serialization)
+```
+
+**Key Features:**
+- **Containerized Training**: SKLearn Estimator with pre-built containers
+- **Scalable Compute**: Choose instance types based on dataset size
+- **Reproducible Results**: Fixed random seeds and consistent environments
+- **CloudWatch Logging**: Centralized logging for debugging and monitoring
+
+#### 3. **Model Deployment & Inference**
+```python
+# Inference Pipeline
+inference.py:
+├── model_fn() - Load model and scaler
+├── predict_fn() - Preprocess input and predict
+└── CloudWatch Logging - Monitor predictions
+```
+
+**Deployment Options Covered:**
+- **Real-time Endpoints**: Low-latency predictions via HTTPS API
+- **Custom Inference Scripts**: Data preprocessing at inference time
+- **Model Versioning**: Track different model versions in S3
+
+### Monitoring & Observability
+
+#### CloudWatch Integration
+- **Training Job Logs**: Monitor training progress and errors
+- **Endpoint Logs**: Track inference requests and responses
+- **Performance Metrics**: Model latency, error rates, invocation counts
+- **Cost Monitoring**: Track resource usage and costs
+
+#### Key Metrics Tracked:
+| Metric | Purpose | Action Threshold |
+|--------|---------|------------------|
+| `ModelLatency` | Response time | > 1000ms |
+| `Invocation4XXErrors` | Client errors | > 5% |
+| `Invocation5XXErrors` | Server errors | > 1% |
+| `MemoryUtilization` | Resource usage | > 80% |
+
+### Security & Compliance
+
+#### IAM Best Practices
+- **Least Privilege Access**: SageMaker execution role with minimal required permissions
+- **S3 Bucket Policies**: Restricted access to training data and model artifacts
+- **VPC Configuration**: Network isolation for SageMaker Studio
+
+#### Security Features Implemented:
+```yaml
+IAM Permissions:
+├── S3: GetObject, PutObject, ListBucket (specific bucket only)
+├── CloudWatch: CreateLogGroup, PutLogEvents
+└── SageMaker: Full access for training and deployment
+```
+
+### Cost Management & Optimization
+
+#### Resource Cleanup
+- **Automated Cleanup**: Programmatic deletion of CloudFormation stacks
+- **Endpoint Management**: Delete idle endpoints to avoid charges
+- **S3 Object Cleanup**: Remove temporary artifacts and datasets
+
+#### Cost Optimization Strategies:
+- **Right-sizing Instances**: Use appropriate instance types for training
+- **Spot Instances**: (Future enhancement) Use spot instances for training jobs
+- **Auto-scaling**: (Future enhancement) Scale endpoints based on demand
+
+### Production Readiness Gaps & Future Enhancements
+
+#### Current Implementation (Proof of Concept)
+✅ **Completed:**
+- Basic MLOps pipeline (train → deploy → monitor)
+- Infrastructure as Code
+- CloudWatch monitoring
+- Automated cleanup
+
+#### Production Enhancements Needed:
+🔧 **Model Management:**
+- Model versioning and registry (MLflow integration)
+- A/B testing capabilities
+- Model performance monitoring and drift detection
+
+🔧 **CI/CD Pipeline:**
+- Automated testing of training scripts
+- Model validation tests (accuracy thresholds)
+- Automated deployment pipeline
+- Rollback strategies
+
+🔧 **Advanced Monitoring:**
+- Custom CloudWatch dashboards
+- Alerting on model degradation
+- Data drift monitoring
+- Business metrics tracking
+
+🔧 **Security Hardening:**
+- VPC endpoints for S3 (data in transit encryption)
+- S3 bucket encryption at rest
+- Secrets management for API keys
+- Network security groups
+
+🔧 **Scalability:**
+- Auto-scaling configuration for endpoints
+- Batch inference pipeline
+- Multi-model endpoints
+- Load testing capabilities
+
+### DevOps Lessons Learned
+
+#### What Worked Well:
+1. **Infrastructure as Code**: CloudFormation templates made setup reproducible
+2. **Separation of Concerns**: Training scripts separate from infrastructure
+3. **Centralized Logging**: CloudWatch provided excellent visibility
+4. **Automated Cleanup**: Prevented cost overruns
+
+#### Areas for Improvement:
+1. **Error Handling**: Need retry logic and circuit breakers
+2. **Testing**: Missing unit tests for training and inference scripts
+3. **Documentation**: Need API documentation for deployed endpoints
+4. **Monitoring**: Need custom dashboards and alerting
+
+### Next Steps for Production MLOps
+
+1. **Implement MLflow** for experiment tracking and model registry
+2. **Add CI/CD Pipeline** with GitHub Actions for automated testing/deployment
+3. **Create Custom Dashboards** for business and technical metrics
+4. **Implement Data Validation** using Great Expectations
+5. **Add Security Hardening** with encryption and VPC endpoints
+6. **Build Batch Inference Pipeline** for large-scale predictions
+
+This foundation provides a solid starting point for understanding MLOps principles, with clear paths for scaling to production-ready systems.
+
+## 🎓 Week 1 ML Fundamentals & Assessment
+
+### Overview of ML Fundamentals Implementation
+
+Week 1 established the foundational knowledge for machine learning through hands-on implementation with scikit-learn. The sessions demonstrated how to transition from theoretical AI/ML concepts to practical model building and evaluation.
+
+### AI/ML Concepts Coverage
+
+**What We Implemented:**
+- **AI/ML/DL/GenAI Distinctions**: Clear definitions with real-world examples (email management system)
+- **Learning Types**: Supervised vs unsupervised learning with visual demonstrations
+- **Problem Types**: Classification vs regression with practical examples
+- **Model Behavior**: Underfitting vs overfitting with decision tree visualizations
+- **Data Challenges**: Class imbalance concepts and business implications
+
+**Key Learning Outcomes:**
+- Understanding the complete ML lifecycle (Prepare → Train → Predict & Evaluate)
+- Hands-on experience with real datasets (Iris, Titanic)
+- Model evaluation and interpretation skills
+- Business context for ML decisions
+
+### ML Lifecycle Implementation
+
+#### 1. **Data Preparation & Exploration**
+```python
+# Data Loading & Preprocessing Pipeline
+├── Dataset Loading (Iris, Titanic)
+├── Data Cleaning (handle missing values, encode categories)
+├── Feature Selection (relevant columns)
+├── Train/Test Split (80/20 with stratification)
+└── Feature Scaling (StandardScaler for consistency)
+```
+
+**Covered Techniques:**
+- **Data Loading**: CSV files and sklearn datasets
+- **Basic Cleaning**: Drop missing values, categorical encoding
+- **Feature Engineering**: Simple feature selection
+- **Data Splitting**: Train/test split with random state for reproducibility
+
+#### 2. **Model Training & Selection**
+```python
+# Model Training Pipeline
+├── Decision Tree Classifier (baseline model)
+├── Random Forest Classifier (ensemble method)
+├── Feature Importance Analysis
+└── Model Visualization (decision tree plots)
+```
+
+**Models Implemented:**
+- **Decision Trees**: Interpretable baseline with visual decision boundaries
+- **Random Forest**: Ensemble method for improved performance
+- **Feature Importance**: Understanding which features drive predictions
+
+#### 3. **Model Evaluation & Interpretation**
+```python
+# Evaluation Metrics Pipeline
+├── Accuracy (overall performance)
+├── Precision (false positive control)
+├── Recall (false negative control)
+├── F1 Score (balanced metric)
+├── Confusion Matrix (raw and normalized)
+└── Classification Report (comprehensive metrics)
+```
+
+**Evaluation Techniques:**
+- **Core Metrics**: Accuracy, precision, recall, F1 score
+- **Confusion Matrix**: Both raw counts and normalized proportions
+- **Business Context**: Real-world implications (Facebook Marketplace gun detection)
+- **Model Comparison**: Decision Tree vs Random Forest performance
+
+### Real-World Application Examples
+
+#### Business Context Integration
+- **Titanic Survival Prediction**: Binary classification with imbalanced data
+- **Facebook Marketplace Gun Detection**: Real-world ML system with business implications
+- **Loan Approval System**: Supervised learning with feature importance
+- **Customer Segmentation**: Unsupervised learning with clustering
+
+#### Error Analysis & Business Impact
+| Error Type | Business Impact | Example Context |
+|------------|----------------|-----------------|
+| **False Positive** | User trust issues | Flagging innocent marketplace items |
+| **False Negative** | Safety/compliance risk | Missing actual gun listings |
+| **Class Imbalance** | Misleading accuracy | 95% accuracy with 0% fraud detection |
+
+### Production Readiness Gaps & Future Enhancements
+
+#### Current Implementation (ML Fundamentals)
+✅ **Completed:**
+- Basic ML lifecycle understanding
+- Core evaluation metrics
+- Model training and prediction
+- Business context integration
+- Hands-on dataset experience
+
+#### Production Enhancements Needed:
+🔧 **Advanced Data Preprocessing:**
+- Comprehensive data cleaning techniques
+- Advanced missing value handling (imputation, interpolation)
+- Feature engineering and creation
+- Data validation and quality checks
+- Outlier detection and treatment
+
+🔧 **Robust Model Evaluation:**
+- Cross-validation for model selection
+- ROC curves and AUC metrics
+- Precision-Recall curves
+- Learning curves for overfitting detection
+- Stratified sampling for imbalanced datasets
+
+🔧 **Model Selection & Tuning:**
+- Hyperparameter tuning (Grid Search, Random Search)
+- Model comparison methodology
+- Train/validation/test split strategy
+- Cross-validation techniques
+- Performance analysis by subgroups
+
+🔧 **Advanced Analytics:**
+- Comprehensive exploratory data analysis (EDA)
+- Correlation analysis and heatmaps
+- Distribution analysis and statistical summaries
+- Feature selection techniques
+- Dimensionality reduction concepts (PCA basics)
+
+🔧 **Model Interpretability:**
+- SHAP values or LIME for model explanation
+- Partial dependence plots
+- Global vs local interpretability
+- Model-agnostic interpretation techniques
+- Error pattern analysis
+
+🔧 **Production Considerations:**
+- Model persistence and loading
+- Data pipeline concepts
+- Model versioning basics
+- A/B testing concepts for models
+- Performance monitoring
+
+### ML Fundamentals Lessons Learned
+
+#### What Worked Well:
+1. **Progressive Learning**: Clear progression from theory to practice
+2. **Real-World Context**: Business examples made concepts tangible
+3. **Visual Learning**: Decision tree plots and confusion matrices
+4. **Hands-On Experience**: Multiple datasets and model types
+5. **Business Integration**: Understanding error types and their impact
+
+#### Areas for Improvement:
+1. **Data Quality**: Need more robust preprocessing techniques
+2. **Model Selection**: Missing systematic comparison methodology
+3. **Evaluation Depth**: Need advanced metrics and validation techniques
+4. **Feature Engineering**: Limited feature creation and selection
+5. **Production Readiness**: Missing deployment and monitoring concepts
+
+### Next Steps for Advanced ML
+
+1. **Implement Cross-Validation** for robust model evaluation
+2. **Add Advanced Metrics** (ROC/AUC, Precision-Recall curves)
+3. **Include Feature Engineering** techniques and selection methods
+4. **Demonstrate Hyperparameter Tuning** with grid search
+5. **Add Model Interpretability** tools (SHAP, LIME)
+6. **Build Production Pipelines** with model persistence and monitoring
+
+### Curriculum Progression Recommendations
+
+#### Week 1 Enhancement (if revisiting):
+- **Comprehensive EDA**: Pandas profiling and statistical analysis
+- **Cross-Validation**: K-fold validation for robust evaluation
+- **Advanced Metrics**: ROC curves and AUC for binary classification
+- **Feature Engineering**: Creating and selecting meaningful features
+- **Hyperparameter Tuning**: Grid search and model optimization
+
+#### Future Week Structure:
+- **Week 3**: Advanced evaluation and model selection techniques
+- **Week 4**: Feature engineering and data preprocessing mastery
+- **Week 5**: Model interpretability and explainable AI
+- **Week 6**: Production deployment and MLOps integration
+
+This foundation provides essential ML knowledge with clear paths for advanced learning and production implementation.
 
 ## 🔧 DevOps Best Practices
 
