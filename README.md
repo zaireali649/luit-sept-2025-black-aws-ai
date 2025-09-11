@@ -250,178 +250,6 @@ luit-sept-2025-black-aws-ai/
 ### Future Sessions
 *Content will be added as sessions are completed*
 
-## 🏗️ Week 2 MLOps & DevOps Concepts
-
-### Overview of MLOps Implementation
-
-Week 2 introduced fundamental MLOps (Machine Learning Operations) concepts through hands-on implementation with Amazon SageMaker. The sessions demonstrated how to transition from local ML development to production-ready cloud-based ML workflows.
-
-### Infrastructure as Code (IaC) with CloudFormation
-
-**What We Implemented:**
-- **Automated Infrastructure Provisioning**: Used CloudFormation templates to create SageMaker Studio domains, IAM roles, and S3 buckets
-- **Programmatic Deployment**: Deployed infrastructure using `boto3` instead of manual AWS Console operations
-- **Reproducible Environments**: Ensured consistent infrastructure across different environments
-
-**Key Files:**
-- [`caip_02_01/cf_templates/sagemaker_infra.yaml`](caip_02_01/cf_templates/sagemaker_infra.yaml) - Complete infrastructure template
-- Infrastructure includes: SageMaker Studio Domain, IAM Execution Role, S3 Bucket, User Profile
-
-**DevOps Benefits:**
-- **Version Control**: Infrastructure changes tracked in Git
-- **Automation**: Eliminates manual setup errors
-- **Scalability**: Easy to replicate across regions/accounts
-- **Cost Control**: Automated cleanup prevents resource sprawl
-
-### MLOps Pipeline Components
-
-#### 1. **Data Management & Storage**
-```yaml
-Data Flow:
-Local CSV → S3 Bucket → SageMaker Training Job → Model Artifacts → S3 Storage
-```
-- **S3 Integration**: Centralized data storage for training datasets
-- **Artifact Management**: Automatic model artifact storage and versioning
-- **Data Preprocessing**: Consistent data cleaning and feature engineering
-
-#### 2. **Training Pipeline**
-```python
-# Training Script Structure
-train_model.py:
-├── Data Loading (from S3)
-├── Feature Engineering
-├── Model Training (Decision Tree)
-├── Model Evaluation (Metrics & Logging)
-└── Model Persistence (joblib serialization)
-```
-
-**Key Features:**
-- **Containerized Training**: SKLearn Estimator with pre-built containers
-- **Scalable Compute**: Choose instance types based on dataset size
-- **Reproducible Results**: Fixed random seeds and consistent environments
-- **CloudWatch Logging**: Centralized logging for debugging and monitoring
-
-#### 3. **Model Deployment & Inference**
-```python
-# Inference Pipeline
-inference.py:
-├── model_fn() - Load model and scaler
-├── predict_fn() - Preprocess input and predict
-└── CloudWatch Logging - Monitor predictions
-```
-
-**Deployment Options Covered:**
-- **Real-time Endpoints**: Low-latency predictions via HTTPS API
-- **Custom Inference Scripts**: Data preprocessing at inference time
-- **Model Versioning**: Track different model versions in S3
-
-### Monitoring & Observability
-
-#### CloudWatch Integration
-- **Training Job Logs**: Monitor training progress and errors
-- **Endpoint Logs**: Track inference requests and responses
-- **Performance Metrics**: Model latency, error rates, invocation counts
-- **Cost Monitoring**: Track resource usage and costs
-
-#### Key Metrics Tracked:
-| Metric | Purpose | Action Threshold |
-|--------|---------|------------------|
-| `ModelLatency` | Response time | > 1000ms |
-| `Invocation4XXErrors` | Client errors | > 5% |
-| `Invocation5XXErrors` | Server errors | > 1% |
-| `MemoryUtilization` | Resource usage | > 80% |
-
-### Security & Compliance
-
-#### IAM Best Practices
-- **Least Privilege Access**: SageMaker execution role with minimal required permissions
-- **S3 Bucket Policies**: Restricted access to training data and model artifacts
-- **VPC Configuration**: Network isolation for SageMaker Studio
-
-#### Security Features Implemented:
-```yaml
-IAM Permissions:
-├── S3: GetObject, PutObject, ListBucket (specific bucket only)
-├── CloudWatch: CreateLogGroup, PutLogEvents
-└── SageMaker: Full access for training and deployment
-```
-
-### Cost Management & Optimization
-
-#### Resource Cleanup
-- **Automated Cleanup**: Programmatic deletion of CloudFormation stacks
-- **Endpoint Management**: Delete idle endpoints to avoid charges
-- **S3 Object Cleanup**: Remove temporary artifacts and datasets
-
-#### Cost Optimization Strategies:
-- **Right-sizing Instances**: Use appropriate instance types for training
-- **Spot Instances**: (Future enhancement) Use spot instances for training jobs
-- **Auto-scaling**: (Future enhancement) Scale endpoints based on demand
-
-### Production Readiness Gaps & Future Enhancements
-
-#### Current Implementation (Proof of Concept)
-✅ **Completed:**
-- Basic MLOps pipeline (train → deploy → monitor)
-- Infrastructure as Code
-- CloudWatch monitoring
-- Automated cleanup
-
-#### Production Enhancements Needed:
-🔧 **Model Management:**
-- Model versioning and registry (MLflow integration)
-- A/B testing capabilities
-- Model performance monitoring and drift detection
-
-🔧 **CI/CD Pipeline:**
-- Automated testing of training scripts
-- Model validation tests (accuracy thresholds)
-- Automated deployment pipeline
-- Rollback strategies
-
-🔧 **Advanced Monitoring:**
-- Custom CloudWatch dashboards
-- Alerting on model degradation
-- Data drift monitoring
-- Business metrics tracking
-
-🔧 **Security Hardening:**
-- VPC endpoints for S3 (data in transit encryption)
-- S3 bucket encryption at rest
-- Secrets management for API keys
-- Network security groups
-
-🔧 **Scalability:**
-- Auto-scaling configuration for endpoints
-- Batch inference pipeline
-- Multi-model endpoints
-- Load testing capabilities
-
-### DevOps Lessons Learned
-
-#### What Worked Well:
-1. **Infrastructure as Code**: CloudFormation templates made setup reproducible
-2. **Separation of Concerns**: Training scripts separate from infrastructure
-3. **Centralized Logging**: CloudWatch provided excellent visibility
-4. **Automated Cleanup**: Prevented cost overruns
-
-#### Areas for Improvement:
-1. **Error Handling**: Need retry logic and circuit breakers
-2. **Testing**: Missing unit tests for training and inference scripts
-3. **Documentation**: Need API documentation for deployed endpoints
-4. **Monitoring**: Need custom dashboards and alerting
-
-### Next Steps for Production MLOps
-
-1. **Implement MLflow** for experiment tracking and model registry
-2. **Add CI/CD Pipeline** with GitHub Actions for automated testing/deployment
-3. **Create Custom Dashboards** for business and technical metrics
-4. **Implement Data Validation** using Great Expectations
-5. **Add Security Hardening** with encryption and VPC endpoints
-6. **Build Batch Inference Pipeline** for large-scale predictions
-
-This foundation provides a solid starting point for understanding MLOps principles, with clear paths for scaling to production-ready systems.
-
 ## 🎓 Week 1 ML Fundamentals & Assessment
 
 ### Overview of ML Fundamentals Implementation
@@ -594,13 +422,180 @@ Week 1 established the foundational knowledge for machine learning through hands
 - **Feature Engineering**: Creating and selecting meaningful features
 - **Hyperparameter Tuning**: Grid search and model optimization
 
-#### Future Week Structure:
-- **Week 3**: Advanced evaluation and model selection techniques
-- **Week 4**: Feature engineering and data preprocessing mastery
-- **Week 5**: Model interpretability and explainable AI
-- **Week 6**: Production deployment and MLOps integration
-
 This foundation provides essential ML knowledge with clear paths for advanced learning and production implementation.
+
+## 🏗️ Week 2 MLOps & DevOps Concepts
+
+### Overview of MLOps Implementation
+
+Week 2 introduced fundamental MLOps (Machine Learning Operations) concepts through hands-on implementation with Amazon SageMaker. The sessions demonstrated how to transition from local ML development to production-ready cloud-based ML workflows.
+
+### Infrastructure as Code (IaC) with CloudFormation
+
+**What We Implemented:**
+- **Automated Infrastructure Provisioning**: Used CloudFormation templates to create SageMaker Studio domains, IAM roles, and S3 buckets
+- **Programmatic Deployment**: Deployed infrastructure using `boto3` instead of manual AWS Console operations
+- **Reproducible Environments**: Ensured consistent infrastructure across different environments
+
+**Key Files:**
+- [`caip_02_01/cf_templates/sagemaker_infra.yaml`](caip_02_01/cf_templates/sagemaker_infra.yaml) - Complete infrastructure template
+- Infrastructure includes: SageMaker Studio Domain, IAM Execution Role, S3 Bucket, User Profile
+
+**DevOps Benefits:**
+- **Version Control**: Infrastructure changes tracked in Git
+- **Automation**: Eliminates manual setup errors
+- **Scalability**: Easy to replicate across regions/accounts
+- **Cost Control**: Automated cleanup prevents resource sprawl
+
+### MLOps Pipeline Components
+
+#### 1. **Data Management & Storage**
+```yaml
+Data Flow:
+Local CSV → S3 Bucket → SageMaker Training Job → Model Artifacts → S3 Storage
+```
+- **S3 Integration**: Centralized data storage for training datasets
+- **Artifact Management**: Automatic model artifact storage and versioning
+- **Data Preprocessing**: Consistent data cleaning and feature engineering
+
+#### 2. **Training Pipeline**
+```python
+# Training Script Structure
+train_model.py:
+├── Data Loading (from S3)
+├── Feature Engineering
+├── Model Training (Decision Tree)
+├── Model Evaluation (Metrics & Logging)
+└── Model Persistence (joblib serialization)
+```
+
+**Key Features:**
+- **Containerized Training**: SKLearn Estimator with pre-built containers
+- **Scalable Compute**: Choose instance types based on dataset size
+- **Reproducible Results**: Fixed random seeds and consistent environments
+- **CloudWatch Logging**: Centralized logging for debugging and monitoring
+
+#### 3. **Model Deployment & Inference**
+```python
+# Inference Pipeline
+inference.py:
+├── model_fn() - Load model and scaler
+├── predict_fn() - Preprocess input and predict
+└── CloudWatch Logging - Monitor predictions
+```
+
+**Deployment Options Covered:**
+- **Real-time Endpoints**: Low-latency predictions via HTTPS API
+- **Custom Inference Scripts**: Data preprocessing at inference time
+- **Model Versioning**: Track different model versions in S3
+
+### Monitoring & Observability
+
+#### CloudWatch Integration
+- **Training Job Logs**: Monitor training progress and errors
+- **Endpoint Logs**: Track inference requests and responses
+- **Performance Metrics**: Model latency, error rates, invocation counts
+- **Cost Monitoring**: Track resource usage and costs
+
+#### Key Metrics Tracked:
+| Metric | Purpose | Action Threshold |
+|--------|---------|------------------|
+| `ModelLatency` | Response time | > 1000ms |
+| `Invocation4XXErrors` | Client errors | > 5% |
+| `Invocation5XXErrors` | Server errors | > 1% |
+| `MemoryUtilization` | Resource usage | > 80% |
+
+### Security & Compliance
+
+#### IAM Best Practices
+- **Least Privilege Access**: SageMaker execution role with minimal required permissions
+- **S3 Bucket Policies**: Restricted access to training data and model artifacts
+- **VPC Configuration**: Network isolation for SageMaker Studio
+
+#### Security Features Implemented:
+```yaml
+IAM Permissions:
+├── S3: GetObject, PutObject, ListBucket (specific bucket only)
+├── CloudWatch: CreateLogGroup, PutLogEvents
+└── SageMaker: Full access for training and deployment
+```
+
+### Cost Management & Optimization
+
+#### Resource Cleanup
+- **Automated Cleanup**: Programmatic deletion of CloudFormation stacks
+- **Endpoint Management**: Delete idle endpoints to avoid charges
+- **S3 Object Cleanup**: Remove temporary artifacts and datasets
+
+#### Cost Optimization Strategies:
+- **Right-sizing Instances**: Use appropriate instance types for training
+- **Spot Instances**: (Future enhancement) Use spot instances for training jobs
+- **Auto-scaling**: (Future enhancement) Scale endpoints based on demand
+
+### Production Readiness Gaps & Future Enhancements
+
+#### Current Implementation (Proof of Concept)
+✅ **Completed:**
+- Basic MLOps pipeline (train → deploy → monitor)
+- Infrastructure as Code
+- CloudWatch monitoring
+- Automated cleanup
+
+#### Production Enhancements Needed:
+🔧 **Model Management:**
+- Model versioning and registry (MLflow integration)
+- A/B testing capabilities
+- Model performance monitoring and drift detection
+
+🔧 **CI/CD Pipeline:**
+- Automated testing of training scripts
+- Model validation tests (accuracy thresholds)
+- Automated deployment pipeline
+- Rollback strategies
+
+🔧 **Advanced Monitoring:**
+- Custom CloudWatch dashboards
+- Alerting on model degradation
+- Data drift monitoring
+- Business metrics tracking
+
+🔧 **Security Hardening:**
+- VPC endpoints for S3 (data in transit encryption)
+- S3 bucket encryption at rest
+- Secrets management for API keys
+- Network security groups
+
+🔧 **Scalability:**
+- Auto-scaling configuration for endpoints
+- Batch inference pipeline
+- Multi-model endpoints
+- Load testing capabilities
+
+### DevOps Lessons Learned
+
+#### What Worked Well:
+1. **Infrastructure as Code**: CloudFormation templates made setup reproducible
+2. **Separation of Concerns**: Training scripts separate from infrastructure
+3. **Centralized Logging**: CloudWatch provided excellent visibility
+4. **Automated Cleanup**: Prevented cost overruns
+
+#### Areas for Improvement:
+1. **Error Handling**: Need retry logic and circuit breakers
+2. **Testing**: Missing unit tests for training and inference scripts
+3. **Documentation**: Need API documentation for deployed endpoints
+4. **Monitoring**: Need custom dashboards and alerting
+
+### Next Steps for Production MLOps
+
+1. **Implement MLflow** for experiment tracking and model registry
+2. **Add CI/CD Pipeline** with GitHub Actions for automated testing/deployment
+3. **Create Custom Dashboards** for business and technical metrics
+4. **Implement Data Validation** using Great Expectations
+5. **Add Security Hardening** with encryption and VPC endpoints
+6. **Build Batch Inference Pipeline** for large-scale predictions
+
+This foundation provides a solid starting point for understanding MLOps principles, with clear paths for scaling to production-ready systems.
+
 
 ## 🔧 DevOps Best Practices
 
