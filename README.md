@@ -347,46 +347,46 @@ Week 1 established the foundational knowledge for machine learning through hands
 
 #### Production Enhancements Needed:
 🔧 **Advanced Data Preprocessing:**
-- Comprehensive data cleaning techniques
-- Advanced missing value handling (imputation, interpolation)
-- Feature engineering and creation
-- Data validation and quality checks
-- Outlier detection and treatment
+- **Comprehensive data cleaning techniques**: Data profiling, automated quality analysis, schema validation
+- **Advanced missing value handling**: Imputation (mean/median/mode), interpolation, KNN imputation, multiple imputation
+- **Feature engineering and creation**: Combining features, interaction terms, polynomial features, domain-specific transformations
+- **Data validation and quality checks**: Range validation, business rule checks, statistical anomaly detection
+- **Outlier detection and treatment**: IQR method, Z-score analysis, Isolation Forest, domain-specific outlier rules
 
 🔧 **Robust Model Evaluation:**
-- Cross-validation for model selection
-- ROC curves and AUC metrics
-- Precision-Recall curves
-- Learning curves for overfitting detection
-- Stratified sampling for imbalanced datasets
+- **Cross-validation for model selection**: K-fold CV, stratified CV, time series CV for robust performance estimates
+- **ROC curves and AUC metrics**: True Positive Rate vs False Positive Rate plots, Area Under Curve for binary classification
+- **Precision-Recall curves**: Better for imbalanced data, shows precision vs recall at different thresholds
+- **Learning curves for overfitting detection**: Training vs validation performance plots to identify overfitting
+- **Stratified sampling for imbalanced datasets**: Maintains class distribution across train/test splits
 
 🔧 **Model Selection & Tuning:**
-- Hyperparameter tuning (Grid Search, Random Search)
-- Model comparison methodology
-- Train/validation/test split strategy
-- Cross-validation techniques
-- Performance analysis by subgroups
+- **Hyperparameter tuning**: Grid Search (exhaustive), Random Search (efficient), Bayesian Optimization (guided search)
+- **Model comparison methodology**: Statistical tests (t-tests, Wilcoxon), ensemble methods, performance benchmarking
+- **Train/validation/test split strategy**: Proper data splitting to prevent data leakage and overfitting
+- **Cross-validation techniques**: Multiple validation strategies for robust model selection
+- **Performance analysis by subgroups**: Model performance breakdown by demographic or feature groups
 
 🔧 **Advanced Analytics:**
-- Comprehensive exploratory data analysis (EDA)
-- Correlation analysis and heatmaps
-- Distribution analysis and statistical summaries
-- Feature selection techniques
-- Dimensionality reduction concepts (PCA basics)
+- **Comprehensive exploratory data analysis (EDA)**: Automated data profiling, statistical summaries, distribution analysis
+- **Correlation analysis and heatmaps**: Pearson/Spearman correlations, feature relationship visualization
+- **Distribution analysis and statistical summaries**: Histograms, box plots, violin plots, descriptive statistics
+- **Feature selection techniques**: Correlation analysis, mutual information, recursive feature elimination, LASSO
+- **Dimensionality reduction concepts**: PCA (linear), t-SNE (non-linear), UMAP (modern alternative) for visualization
 
 🔧 **Model Interpretability:**
-- SHAP values or LIME for model explanation
-- Partial dependence plots
-- Global vs local interpretability
-- Model-agnostic interpretation techniques
-- Error pattern analysis
+- **SHAP values or LIME for model explanation**: SHAP (Shapley values from game theory), LIME (local approximation) for individual predictions
+- **Partial dependence plots**: Shows feature effects while averaging over other features, reveals interactions
+- **Global vs local interpretability**: Global (overall model behavior) vs Local (individual prediction explanations)
+- **Model-agnostic interpretation techniques**: Works with any ML model, not specific to algorithm type
+- **Error pattern analysis**: Analysis of misclassified examples, identifying systematic model failures
 
 🔧 **Production Considerations:**
-- Model persistence and loading
-- Data pipeline concepts
-- Model versioning basics
-- A/B testing concepts for models
-- Performance monitoring
+- **Model persistence and loading**: Serialization (pickle, joblib), model registry, version control for trained models
+- **Data pipeline concepts**: ETL/ELT processes, data validation, feature stores for centralized feature management
+- **Model versioning basics**: Tracking model versions, performance comparison, rollback strategies
+- **A/B testing concepts for models**: Champion/challenger testing, statistical significance, business impact measurement
+- **Performance monitoring**: Data drift detection, concept drift, model decay monitoring, alerting systems
 
 ### ML Fundamentals Lessons Learned
 
@@ -406,21 +406,21 @@ Week 1 established the foundational knowledge for machine learning through hands
 
 ### Next Steps for Advanced ML
 
-1. **Implement Cross-Validation** for robust model evaluation
-2. **Add Advanced Metrics** (ROC/AUC, Precision-Recall curves)
-3. **Include Feature Engineering** techniques and selection methods
-4. **Demonstrate Hyperparameter Tuning** with grid search
-5. **Add Model Interpretability** tools (SHAP, LIME)
-6. **Build Production Pipelines** with model persistence and monitoring
+1. **Implement Cross-Validation** for robust model evaluation (K-fold, stratified sampling)
+2. **Add Advanced Metrics** (ROC/AUC curves for binary classification, Precision-Recall curves for imbalanced data)
+3. **Include Feature Engineering** techniques (feature creation, selection, transformation) and selection methods
+4. **Demonstrate Hyperparameter Tuning** with grid search, random search, and Bayesian optimization
+5. **Add Model Interpretability** tools (SHAP for feature attribution, LIME for local explanations)
+6. **Build Production Pipelines** with model persistence (pickle/joblib), versioning, and monitoring
 
 ### Curriculum Progression Recommendations
 
 #### Week 1 Enhancement (if revisiting):
-- **Comprehensive EDA**: Pandas profiling and statistical analysis
-- **Cross-Validation**: K-fold validation for robust evaluation
-- **Advanced Metrics**: ROC curves and AUC for binary classification
-- **Feature Engineering**: Creating and selecting meaningful features
-- **Hyperparameter Tuning**: Grid search and model optimization
+- **Comprehensive EDA**: Pandas profiling, automated data quality analysis, statistical summaries
+- **Cross-Validation**: K-fold validation, stratified sampling for robust performance estimates
+- **Advanced Metrics**: ROC curves and AUC for binary classification, Precision-Recall curves for imbalanced data
+- **Feature Engineering**: Feature creation, selection techniques, domain-specific transformations
+- **Hyperparameter Tuning**: Grid search, random search, Bayesian optimization for model improvement
 
 This foundation provides essential ML knowledge with clear paths for advanced learning and production implementation.
 
@@ -543,33 +543,33 @@ IAM Permissions:
 
 #### Production Enhancements Needed:
 🔧 **Model Management:**
-- Model versioning and registry (MLflow integration)
-- A/B testing capabilities
-- Model performance monitoring and drift detection
+- **Model versioning and registry (MLflow integration)**: Centralized model storage, metadata tracking, experiment management
+- **A/B testing capabilities**: Champion/challenger model comparison, gradual rollout, statistical significance testing
+- **Model performance monitoring and drift detection**: Real-time performance tracking, data drift alerts, model decay detection
 
 🔧 **CI/CD Pipeline:**
-- Automated testing of training scripts
-- Model validation tests (accuracy thresholds)
-- Automated deployment pipeline
-- Rollback strategies
+- **Automated testing of training scripts**: Unit tests, integration tests, data validation tests
+- **Model validation tests (accuracy thresholds)**: Performance gates, model quality checks, business metric validation
+- **Automated deployment pipeline**: Blue-green deployment, canary releases, automated model promotion
+- **Rollback strategies**: Automated reversion to previous model versions, circuit breakers, health checks
 
 🔧 **Advanced Monitoring:**
-- Custom CloudWatch dashboards
-- Alerting on model degradation
-- Data drift monitoring
-- Business metrics tracking
+- **Custom CloudWatch dashboards**: Business and technical metrics visualization, real-time model performance tracking
+- **Alerting on model degradation**: Automated alerts for performance drops, error rate increases, latency spikes
+- **Data drift monitoring**: Statistical tests to detect input data distribution changes over time
+- **Business metrics tracking**: Revenue impact, user engagement, conversion rates affected by model predictions
 
 🔧 **Security Hardening:**
-- VPC endpoints for S3 (data in transit encryption)
-- S3 bucket encryption at rest
-- Secrets management for API keys
-- Network security groups
+- **VPC endpoints for S3 (data in transit encryption)**: Private connectivity to AWS services, encrypted data transmission
+- **S3 bucket encryption at rest**: Server-side encryption (SSE-S3, SSE-KMS) for stored data protection
+- **Secrets management for API keys**: AWS Secrets Manager, IAM roles, environment variable security
+- **Network security groups**: Firewall rules, network access control, subnet isolation
 
 🔧 **Scalability:**
-- Auto-scaling configuration for endpoints
-- Batch inference pipeline
-- Multi-model endpoints
-- Load testing capabilities
+- **Auto-scaling configuration for endpoints**: Dynamic scaling based on traffic, cost optimization, performance maintenance
+- **Batch inference pipeline**: Large-scale predictions on S3 data, cost-effective for non-real-time use cases
+- **Multi-model endpoints**: Multiple models on single endpoint, traffic splitting, model routing
+- **Load testing capabilities**: Performance testing, capacity planning, stress testing for production readiness
 
 ### DevOps Lessons Learned
 
@@ -587,12 +587,12 @@ IAM Permissions:
 
 ### Next Steps for Production MLOps
 
-1. **Implement MLflow** for experiment tracking and model registry
-2. **Add CI/CD Pipeline** with GitHub Actions for automated testing/deployment
-3. **Create Custom Dashboards** for business and technical metrics
-4. **Implement Data Validation** using Great Expectations
-5. **Add Security Hardening** with encryption and VPC endpoints
-6. **Build Batch Inference Pipeline** for large-scale predictions
+1. **Implement MLflow** for experiment tracking and model registry (centralized model management, metadata tracking)
+2. **Add CI/CD Pipeline** with GitHub Actions for automated testing/deployment (unit tests, integration tests, automated model promotion)
+3. **Create Custom Dashboards** for business and technical metrics (CloudWatch dashboards, real-time monitoring)
+4. **Implement Data Validation** using Great Expectations (data quality checks, schema validation, anomaly detection)
+5. **Add Security Hardening** with encryption and VPC endpoints (data in transit/at rest encryption, network isolation)
+6. **Build Batch Inference Pipeline** for large-scale predictions (S3-based batch processing, cost-effective inference)
 
 This foundation provides a solid starting point for understanding MLOps principles, with clear paths for scaling to production-ready systems.
 
