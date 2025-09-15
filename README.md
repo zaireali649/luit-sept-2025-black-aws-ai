@@ -61,6 +61,12 @@ After completing the first three sessions, you will be able to:
 - **Production Monitoring**: Access and review endpoint logs and metrics in CloudWatch
 - **Error Handling**: Identify common inference errors and performance metrics
 - **Cost Management**: Delete endpoints to avoid unnecessary charges
+- **AWS Bedrock Fundamentals**: Understand foundational models and their specializations
+- **Cost Control**: Implement strategies to avoid expensive AI model usage mistakes
+- **Prompt Engineering**: Master advanced techniques including TCREI framework and system prompts
+- **AI Strategy**: Make informed decisions between RAG and fine-tuning approaches
+- **Professional AI Usage**: Apply ethical guidelines for AI in career development
+- **Model Parameters**: Configure temperature, top-k, top-p, and token limits effectively
 
 ### Future Learning Goals 🎯
 
@@ -161,16 +167,19 @@ luit-sept-2025-black-aws-ai/
     ├── train.csv                    # Original training data
     ├── test.csv                     # Original test data
     └── *.png                        # Supporting images and diagrams
-└── caip_02_02/                       # Week 2, Call 2 materials
-    ├── caip_week2_call2.ipynb       # Deploy and test ML endpoints
-    ├── caip_week2_call2.pdf         # Reference materials
-    ├── cf_templates/                # CloudFormation templates
-    │   └── sagemaker_infra.yaml     # SageMaker infrastructure setup
-    ├── inference.py                 # Custom inference script for endpoints
-    ├── cleaned_titanic.csv          # Preprocessed dataset
-    ├── inference_pipeline.png       # Real-time inference architecture diagram
-    ├── sagemaker_endpoint_logs.png  # CloudWatch logs screenshot
-    └── sagemaker_metrics.png        # CloudWatch metrics screenshot
+├── caip_02_02/                       # Week 2, Call 2 materials
+│   ├── caip_week2_call2.ipynb       # Deploy and test ML endpoints
+│   ├── caip_week2_call2.pdf         # Reference materials
+│   ├── cf_templates/                # CloudFormation templates
+│   │   └── sagemaker_infra.yaml     # SageMaker infrastructure setup
+│   ├── inference.py                 # Custom inference script for endpoints
+│   ├── cleaned_titanic.csv          # Preprocessed dataset
+│   ├── inference_pipeline.png       # Real-time inference architecture diagram
+│   ├── sagemaker_endpoint_logs.png  # CloudWatch logs screenshot
+│   └── sagemaker_metrics.png        # CloudWatch metrics screenshot
+└── caip_03_01/                       # Week 3, Call 1 materials
+    ├── caip_week3_call1.ipynb       # Introduction to AWS Bedrock and prompt engineering
+    └── CAIP 03 Monday Call.vtt      # Call transcript
 ```
 
 ## 🗺️ Learning Path
@@ -246,6 +255,29 @@ luit-sept-2025-black-aws-ai/
   - Monitored endpoint performance through CloudWatch logs and metrics
   - Identified and understood common inference errors
   - Deleted endpoints to avoid unnecessary costs
+
+### Week 3: AWS Bedrock and Foundational Models
+
+#### Call 1: Introduction to AWS Bedrock and Prompt Engineering ✅ *Completed*
+- 📓 [`caip_03_01/caip_week3_call1.ipynb`](caip_03_01/caip_week3_call1.ipynb)
+- **Topics Covered:**
+  - AWS Bedrock service overview and foundational models (Claude, Titan, Llama, etc.)
+  - Critical cost management and token pricing understanding
+  - Model parameters: Temperature, Top K, Top P, and Max Tokens
+  - Prompt engineering techniques: Zero-shot, Few-shot, Chain of Thought
+  - The TCREI framework for structured prompting
+  - System prompts and their role in AI behavior
+  - RAG vs Fine-tuning strategic decisions
+  - Business use cases for LLMs across industries
+  - AI ethics and professional usage guidelines
+  - Career strategy and skill prioritization for AI/ML roles
+- **Key Learning Outcomes:**
+  - Understanding foundational models and their specializations
+  - Cost control strategies to avoid expensive mistakes
+  - Advanced prompt engineering for better AI interactions
+  - Strategic approach to AI implementation in business
+  - Professional guidelines for using AI in career development
+  - Clear skill hierarchy: CI/CD → Terraform → Docker → Everything else
 
 ### Future Sessions
 *Content will be added as sessions are completed*
@@ -595,7 +627,6 @@ IAM Permissions:
 6. **Build Batch Inference Pipeline** for large-scale predictions (S3-based batch processing, cost-effective inference)
 
 This foundation provides a solid starting point for understanding MLOps principles, with clear paths for scaling to production-ready systems.
-
 
 ## 🔧 DevOps Best Practices
 
