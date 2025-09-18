@@ -1,0 +1,9 @@
+Act as a flower expert. I need you to give me information on the state flower of {state_name}. The response should be in json and in this format:
+
+{
+"state": "state_name",
+"flower": "flower_name",
+"color": "flower_color"
+}
+
+Do not give any additional information even if I am wrong.
