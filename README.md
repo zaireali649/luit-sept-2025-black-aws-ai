@@ -17,6 +17,7 @@
 - [Learning Path](#learning-path)
 - [Week 1 ML Fundamentals & Assessment](#week-1-ml-fundamentals--assessment)
 - [Week 2 MLOps & DevOps Concepts](#week-2-mlops--devops-concepts)
+- [Week 3 AWS Bedrock & Prompt Engineering](#week-3-aws-bedrock--prompt-engineering)
 - [DevOps Best Practices](#devops-best-practices)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
@@ -177,9 +178,16 @@ luit-sept-2025-black-aws-ai/
 │   ├── inference_pipeline.png       # Real-time inference architecture diagram
 │   ├── sagemaker_endpoint_logs.png  # CloudWatch logs screenshot
 │   └── sagemaker_metrics.png        # CloudWatch metrics screenshot
-└── caip_03_01/                       # Week 3, Call 1 materials
+├── caip_03_01/                       # Week 3, Call 1 materials
     ├── caip_week3_call1.ipynb       # Introduction to AWS Bedrock and prompt engineering
     └── CAIP 03 Monday Call.vtt      # Call transcript
+└── caip_03_02/                       # Week 3, Call 2 materials
+    ├── call_bedrock.py              # Core Bedrock API integration
+    ├── run_bedrock.py               # Batch processing script with retry logic
+    ├── prompt_template.txt          # Production-ready prompt template
+    ├── simple_prompt.txt            # Basic prompt example
+    ├── complex_prompt.txt           # Advanced prompt example
+    └── flower_data.json             # Generated dataset of US state flowers
 ```
 
 ## 🗺️ Learning Path
@@ -278,6 +286,41 @@ luit-sept-2025-black-aws-ai/
   - Strategic approach to AI implementation in business
   - Professional guidelines for using AI in career development
   - Clear skill hierarchy: CI/CD → Terraform → Docker → Everything else
+
+### Week 3: AWS Bedrock & Prompt Engineering
+
+#### Call 1: Introduction to AWS Bedrock ✅ *Completed*
+- 📓 [`caip_03_01/caip_week3_call1.ipynb`](caip_03_01/caip_week3_call1.ipynb)
+- **Topics Covered:**
+  - AWS Bedrock service and foundational models
+  - Critical cost management and token pricing
+  - Model parameters (Temperature, Top K, Top P, Max Tokens)
+  - Advanced prompt engineering techniques (TCREI framework)
+  - System prompts and production templates
+  - Business use cases and RAG vs Fine-tuning strategies
+  - AI ethics and professional use guidelines
+  - Career strategy and skill priorities for AI/ML
+- **Hands-on Experience:**
+  - Understanding different foundational models and their strengths
+  - Learning cost control strategies and pricing models
+  - Mastering prompt engineering techniques and frameworks
+  - Creating system prompts and production templates
+
+#### Call 2: Hands-on Bedrock Implementation ✅ *Completed*
+- 📓 [`caip_03_02/`](caip_03_02/) - Python implementation files
+- **Topics Covered:**
+  - Python integration with AWS Bedrock using boto3
+  - Request construction and API body formatting
+  - Error handling and throttling exception management
+  - Batch processing with rate limiting and retry logic
+  - Production-ready prompt templates
+  - Data validation and JSON response parsing
+- **Hands-on Experience:**
+  - Built Bedrock API integration with proper error handling
+  - Implemented batch processing for state flower data collection
+  - Created production-ready prompt templates
+  - Generated complete dataset of all 50 US state flowers
+  - Applied rate limiting and retry logic for production use
 
 ### Future Sessions
 *Content will be added as sessions are completed*
@@ -627,6 +670,160 @@ IAM Permissions:
 6. **Build Batch Inference Pipeline** for large-scale predictions (S3-based batch processing, cost-effective inference)
 
 This foundation provides a solid starting point for understanding MLOps principles, with clear paths for scaling to production-ready systems.
+
+## 🤖 Week 3 AWS Bedrock & Prompt Engineering
+
+### Overview of AWS Bedrock Implementation
+
+Week 3 introduced students to AWS Bedrock, foundational models, and advanced prompt engineering techniques. The sessions covered both theoretical concepts and hands-on implementation with real-world examples.
+
+### AWS Bedrock & Foundational Models
+
+**What We Implemented:**
+- **AWS Bedrock Service**: Fully managed access to foundational models from leading AI companies
+- **Model Selection**: Understanding different models (Claude, Titan, Jurassic, Llama, Cohere) and their strengths
+- **Cost Management**: Critical understanding of token pricing and cost control strategies
+- **Model Parameters**: Temperature, Top K, Top P, and Max Tokens configuration
+
+**Key Models Covered:**
+- **Anthropic Claude**: Best for reasoning, analysis, and step-by-step thinking
+- **AWS Titan**: Good for summarization and general tasks
+- **AI21 Jurassic**: Excellent for creative writing and storytelling
+- **Meta Llama**: Strong for conversational AI and chat applications
+- **Cohere**: Good for text generation and analysis
+
+### Cost Management & Best Practices
+
+#### **Critical Cost Control:**
+- **NEVER use Provisioned Throughput**: 1-6 month commitment that charges by the hour regardless of usage
+- **Token Management**: ~1000 tokens ≈ 750 words, both input and output tokens are charged
+- **Reasonable Limits**: Keep max tokens at 2000 or below, don't max out unnecessarily
+- **Monitoring**: Set up AWS billing alerts and monitor usage regularly
+
+#### **Pricing Example (Claude 3.5 Sonnet):**
+- Input: ~$0.003 per 1000 tokens (3/10 of a penny)
+- Output: ~$0.015 per 1000 tokens (~1 penny)
+- Example: 38 input tokens + 800+ output tokens = ~3 pennies total
+
+### Advanced Prompt Engineering Techniques
+
+#### **Core Techniques Implemented:**
+- **Zero-shot vs Few-shot vs Many-shot**: Understanding when to provide examples
+- **Chain of Thought**: Using "Think about this step by step" for structured reasoning
+- **Constraint-driven Prompts**: Setting format requirements and target audience levels
+- **Role-based Prompting**: Defining AI persona and expertise areas
+
+#### **TCREI Framework:**
+- **T - Task**: Define specific, actionable tasks
+- **C - Context**: Provide relevant background information
+- **R - Reference**: Give examples or reference materials
+- **E - Evaluate**: Define success criteria and measurement
+- **I - Iterate**: Plan for refinement and improvement
+
+### System Prompts & Production Templates
+
+#### **System Prompt Components:**
+- **Role Definition**: Defining AI expertise and persona
+- **Context Setting**: Providing relevant background information
+- **Behavior Guidelines**: Setting response style and approach
+- **Output Formatting**: Defining response structure and format
+
+#### **Production Template Example (Flower Expert):**
+```markdown
+Act as a flower expert. I need you to give me information on the state flower of {state_name}. The response should be in json and in this format:
+
+{
+"state": "state_name",
+"flower": "flower_name",
+"color": "flower_color"
+}
+
+Example:
+{
+   "state":"Georgia",
+   "flower":"Cherokee Rose",
+   "color":"White"
+}
+```
+
+### Hands-On Implementation (caip_03_02)
+
+#### **Python Integration with Bedrock:**
+- **Boto3 Integration**: Creating Bedrock runtime clients
+- **Request Construction**: Proper API body formatting for Claude models
+- **Error Handling**: Throttling exception handling with exponential backoff
+- **Batch Processing**: Processing multiple requests with rate limiting
+
+#### **Real-World Project:**
+- **State Flower Data Collection**: Automated collection of all 50 US state flowers
+- **Template-based Prompts**: Using structured prompts for consistent JSON output
+- **Data Validation**: Parsing and validating JSON responses
+- **Rate Limiting**: Implementing delays and retry logic for production use
+
+#### **Key Implementation Files:**
+- **`call_bedrock.py`**: Core Bedrock API integration with proper error handling
+- **`run_bedrock.py`**: Batch processing script with retry logic and rate limiting
+- **`prompt_template.txt`**: Production-ready prompt template for structured output
+- **`flower_data.json`**: Generated dataset of all 50 US state flowers
+
+### Business Applications & Use Cases
+
+#### **Real-World Applications:**
+- **Customer Support**: Chat summarization and response generation
+- **Marketing**: SEO content generation and product descriptions
+- **HR**: Job description rewriting and resume screening
+- **Legal**: Contract analysis and document review
+- **Data Teams**: Code generation and dashboard creation
+- **Finance**: Cost analysis and financial insights
+
+#### **RAG vs Fine-tuning Strategy:**
+- **RAG (Preferred)**: Cost-effective, fresh data, easier maintenance, flexible
+- **Fine-tuning (Avoid)**: Expensive, hard to maintain, time-consuming, inflexible
+
+### AI Ethics & Professional Use
+
+#### **Ethical Guidelines:**
+- **Use AI as a tool** to enhance capabilities, not replace thinking
+- **Always review and customize** AI-generated content
+- **Don't use AI during live interviews** (against company policies)
+- **Maintain authenticity** while leveraging AI assistance
+
+#### **Career Applications:**
+- **Resume Enhancement**: Using AI for job search preparation
+- **Interview Practice**: Preparing talking points and responses
+- **Research**: Company and role analysis using AI
+- **Skill Development**: Learning new technologies with AI assistance
+
+### Production Readiness & Best Practices
+
+#### **What We Implemented:**
+- **Cost Control**: Proper token management and monitoring
+- **Error Handling**: Throttling exceptions and retry logic
+- **Template Usage**: Production-ready prompt templates
+- **Batch Processing**: Efficient handling of multiple requests
+- **Data Validation**: JSON parsing and response validation
+
+#### **Production Enhancements Needed:**
+- **Monitoring**: CloudWatch integration for usage tracking
+- **Security**: IAM roles and access control
+- **Scaling**: Auto-scaling and load balancing
+- **Caching**: Response caching for repeated queries
+- **Analytics**: Usage analytics and performance metrics
+
+### Career Strategy Integration
+
+#### **Skill Priority for AI/ML:**
+1. **CI/CD (GitHub Actions)** - Gateway to all other skills
+2. **Infrastructure as Code (Terraform)** - Production deployment requirements
+3. **Docker (Containers)** - Where most compute runs
+4. **AI/ML Integration** - Deploying and monitoring AI systems
+
+#### **AI Career Opportunities:**
+- **High Demand**: AI/ML skills are in high demand with better compensation
+- **DevOps Focus**: Deploying and monitoring AI/ML systems, not developing models
+- **Infrastructure Side**: Focus on the infrastructure side of AI applications
+
+This foundation provides essential knowledge for working with AWS Bedrock and implementing production-ready AI applications with proper cost management and prompt engineering techniques.
 
 ## 🔧 DevOps Best Practices
 
