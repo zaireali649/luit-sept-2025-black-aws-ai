@@ -69,14 +69,20 @@ After completing the first three sessions, you will be able to:
 - **Professional AI Usage**: Apply ethical guidelines for AI in career development
 - **Model Parameters**: Configure temperature, top-k, top-p, and token limits effectively
 
+- **Open Source Model Deployment**: Deploy Hugging Face models to SageMaker endpoints
+- **Model Hub Integration**: Navigate and select appropriate models from Hugging Face Hub
+- **Real-time Inference**: Create and invoke SageMaker endpoints for text classification
+- **Production Deployment**: Use HuggingFaceModel class for managed deployments
+- **Cost Management**: Implement proper endpoint cleanup to avoid unnecessary charges
+- **MLOps Practices**: Understand production-grade model deployment workflows
+- **Infrastructure Automation**: Deploy ML infrastructure using CloudFormation templates
+
 ### Future Learning Goals 🎯
 
 Additional objectives will be added as the course progresses, including:
 - Advanced ML techniques and algorithms
 - Additional AWS AI services integration
-- MLOps and deployment practices
 - Deep learning and neural networks
-- Model deployment and inference endpoints
 
 ## 📚 Prerequisites
 
@@ -181,13 +187,18 @@ luit-sept-2025-black-aws-ai/
 ├── caip_03_01/                       # Week 3, Call 1 materials
     ├── caip_week3_call1.ipynb       # Introduction to AWS Bedrock and prompt engineering
     └── CAIP 03 Monday Call.vtt      # Call transcript
-└── caip_03_02/                       # Week 3, Call 2 materials
-    ├── call_bedrock.py              # Core Bedrock API integration
-    ├── run_bedrock.py               # Batch processing script with retry logic
-    ├── prompt_template.txt          # Production-ready prompt template
-    ├── simple_prompt.txt            # Basic prompt example
-    ├── complex_prompt.txt           # Advanced prompt example
-    └── flower_data.json             # Generated dataset of US state flowers
+├── caip_03_02/                       # Week 3, Call 2 materials
+│   ├── call_bedrock.py              # Core Bedrock API integration
+│   ├── run_bedrock.py               # Batch processing script with retry logic
+│   ├── prompt_template.txt          # Production-ready prompt template
+│   ├── simple_prompt.txt            # Basic prompt example
+│   ├── complex_prompt.txt           # Advanced prompt example
+│   └── flower_data.json             # Generated dataset of US state flowers
+└── caip_04_01/                       # Week 4, Call 1 materials
+    ├── caip_week4_call1.ipynb       # Deploying Hugging Face models to SageMaker
+    ├── caip_week4_call1.pdf         # Reference materials
+    └── cf_templates/                # CloudFormation templates
+        └── sagemaker_infra.yaml     # SageMaker infrastructure setup
 ```
 
 ## 🗺️ Learning Path
@@ -321,6 +332,26 @@ luit-sept-2025-black-aws-ai/
   - Created production-ready prompt templates
   - Generated complete dataset of all 50 US state flowers
   - Applied rate limiting and retry logic for production use
+
+### Week 4: Open Source Models and Production Deployment
+
+#### Call 1: Deploying Hugging Face Models to SageMaker ✅ *Completed*
+- 📓 [`caip_04_01/caip_week4_call1.ipynb`](caip_04_01/caip_week4_call1.ipynb)
+- **Topics Covered:**
+  - Introduction to Hugging Face Hub and the open-source ML ecosystem
+  - Understanding when to use Hugging Face models vs AWS Bedrock
+  - Model selection from Hugging Face Hub for specific tasks (text classification)
+  - SageMaker HuggingFaceModel class for managed deployments
+  - Real-time endpoint deployment and invocation using boto3
+  - Production considerations for model hosting and cost management
+  - MLOps best practices for open-source model deployment
+- **Hands-on Experience:**
+  - Deployed CloudFormation infrastructure for SageMaker
+  - Selected and deployed DistilBERT sentiment analysis model from Hugging Face Hub
+  - Created real-time SageMaker endpoint using HuggingFaceModel class
+  - Tested sentiment analysis with various text inputs and edge cases
+  - Implemented proper cleanup procedures for cost management
+  - Explored production MLOps patterns and DevOps practices
 
 ### Future Sessions
 *Content will be added as sessions are completed*
@@ -824,6 +855,178 @@ Example:
 - **Infrastructure Side**: Focus on the infrastructure side of AI applications
 
 This foundation provides essential knowledge for working with AWS Bedrock and implementing production-ready AI applications with proper cost management and prompt engineering techniques.
+
+## 🤗 Week 4 Open Source Models & Production Deployment
+
+### Overview of Open Source Model Deployment
+
+Week 4 introduced students to the open-source machine learning ecosystem, focusing on Hugging Face as the primary hub for pre-trained models and SageMaker as the deployment platform. The session demonstrated how to bridge open-source innovation with enterprise-grade infrastructure.
+
+### Hugging Face Ecosystem Integration
+
+**What We Implemented:**
+- **Model Hub Navigation**: Understanding the structure and organization of Hugging Face Hub
+- **Model Selection Criteria**: Choosing appropriate models based on task requirements and performance
+- **Community Models**: Leveraging community-contributed models for production use cases
+- **Model Metadata**: Reading and interpreting model cards, performance metrics, and usage guidelines
+
+**Key Components Covered:**
+- **Models Hub**: Thousands of pre-trained models for text, vision, and audio tasks
+- **Datasets**: Benchmark and real-world datasets for training and evaluation
+- **Spaces**: Interactive web applications for testing and demonstrating models
+- **Transformers Library**: Python library for loading and using pre-trained models
+
+### SageMaker Hugging Face Integration
+
+#### **Managed Deployment Benefits:**
+- **No Docker Required**: Use pre-built containers optimized for Hugging Face models
+- **Automatic Model Loading**: SageMaker automatically downloads models from the Hub
+- **Scalable Infrastructure**: Managed endpoints with auto-scaling capabilities
+- **Cost Optimization**: Pay-per-use pricing with automatic resource management
+
+#### **HuggingFaceModel Class Features:**
+```python
+# Deployment Configuration
+hub_config = {
+    'HF_MODEL_ID': 'distilbert-base-uncased-finetuned-sst-2-english',
+    'HF_TASK': 'text-classification'
+}
+
+# Managed deployment with version control
+huggingface_model = HuggingFaceModel(
+    transformers_version='4.26',
+    pytorch_version='1.13',
+    py_version='py39',
+    env=hub_config,
+    role=execution_role
+)
+```
+
+### Real-World Model Testing & Validation
+
+#### **Sentiment Analysis Implementation:**
+- **Model Selection**: DistilBERT fine-tuned on SST-2 dataset for binary sentiment analysis
+- **Edge Case Testing**: Evaluated model performance on slang and informal language
+- **Confidence Scoring**: Analyzed prediction confidence levels and thresholds
+- **Business Context**: Understanding when model predictions might fail
+
+#### **Key Testing Results:**
+| Input Text | Prediction | Confidence | Notes |
+|------------|------------|------------|-------|
+| "This class is amazing!" | POSITIVE | 0.999 | ✅ Clear positive sentiment |
+| "This class is horrible!" | NEGATIVE | 0.999 | ✅ Clear negative sentiment |
+| "This class is the bomb!" | NEGATIVE | 0.999 | ⚠️ Misclassified slang expression |
+
+### Production Deployment Patterns
+
+#### **Infrastructure as Code:**
+- **CloudFormation Templates**: Automated infrastructure provisioning
+- **IAM Role Management**: Least-privilege access for SageMaker operations
+- **S3 Integration**: Model artifact storage and data pipeline integration
+- **VPC Configuration**: Network security and resource isolation
+
+#### **Endpoint Management:**
+- **Real-time Inference**: Low-latency predictions via HTTPS API
+- **Cost Control**: Automated endpoint cleanup and resource management
+- **Monitoring**: CloudWatch integration for performance tracking
+- **Scaling**: Instance type selection and auto-scaling configuration
+
+### MLOps Best Practices for Open Source Models
+
+#### **Model Lifecycle Management:**
+- **Version Control**: Track model versions and deployment configurations
+- **Testing Pipeline**: Automated testing for model performance and behavior
+- **Rollback Strategy**: Safe deployment and quick rollback procedures
+- **Performance Monitoring**: Continuous monitoring of model accuracy and latency
+
+#### **Security & Compliance:**
+- **Model Provenance**: Track model source and training data
+- **License Compliance**: Understand and comply with open-source licenses
+- **Data Privacy**: Ensure model inputs and outputs meet privacy requirements
+- **Access Control**: Implement proper authentication and authorization
+
+### Hugging Face vs Bedrock Decision Framework
+
+#### **When to Choose Hugging Face:**
+- ✅ Need specific open-source models not available in Bedrock
+- ✅ Require model customization or fine-tuning capabilities
+- ✅ Want full control over model deployment and configuration
+- ✅ Building CI/CD pipelines for model deployment automation
+- ✅ Cost-sensitive applications with predictable usage patterns
+
+#### **When to Choose Bedrock:**
+- ✅ Need managed security and compliance features
+- ✅ Prefer plug-and-play experience with minimal code
+- ✅ Want access to latest foundation models from major providers
+- ✅ Require enterprise support and SLA guarantees
+- ✅ Building applications with unpredictable or bursty traffic
+
+### Production Readiness Considerations
+
+#### **Current Implementation (Educational):**
+✅ **Completed:**
+- Basic model deployment and testing
+- Infrastructure automation with CloudFormation
+- Cost management through proper cleanup
+- Real-world testing with edge cases
+
+#### **Production Enhancements Needed:**
+🔧 **Advanced Deployment:**
+- **Multi-model Endpoints**: Deploy multiple models on single endpoint for efficiency
+- **A/B Testing**: Compare different models or model versions in production
+- **Blue/Green Deployment**: Zero-downtime model updates and rollbacks
+- **Canary Releases**: Gradual rollout of new models to production traffic
+
+🔧 **Monitoring & Observability:**
+- **Model Performance Tracking**: Monitor accuracy, latency, and error rates
+- **Data Drift Detection**: Identify when input data patterns change over time
+- **Custom Metrics**: Track business-specific KPIs and model effectiveness
+- **Alerting Systems**: Automated alerts for model degradation or failures
+
+🔧 **Security Hardening:**
+- **Model Signing**: Verify model integrity and authenticity
+- **Input Validation**: Sanitize and validate all model inputs
+- **Output Filtering**: Filter sensitive information from model outputs
+- **Audit Logging**: Complete audit trail for model usage and decisions
+
+### Industry Applications & Use Cases
+
+#### **Text Classification Applications:**
+- **Customer Support**: Ticket routing and sentiment analysis
+- **Content Moderation**: Automated content filtering and classification
+- **Marketing**: Email classification and campaign optimization
+- **Finance**: Document classification and fraud detection
+
+#### **Deployment Patterns in Production:**
+- **Microservices**: Model endpoints as part of larger service architectures
+- **Batch Processing**: Large-scale inference for data processing pipelines
+- **Edge Deployment**: Local model deployment for low-latency applications
+- **Hybrid Architectures**: Combining cloud and on-premises deployments
+
+### Lessons Learned & Best Practices
+
+#### **What Worked Well:**
+1. **Managed Deployment**: HuggingFaceModel class simplified deployment significantly
+2. **Infrastructure Automation**: CloudFormation templates ensured consistent environments
+3. **Real-world Testing**: Edge case testing revealed important model limitations
+4. **Cost Management**: Proper cleanup procedures prevented unnecessary charges
+
+#### **Areas for Improvement:**
+1. **Model Validation**: Need automated testing for model performance and behavior
+2. **Monitoring**: Missing production-grade monitoring and alerting
+3. **Security**: Need enhanced security controls and access management
+4. **Documentation**: API documentation and usage guidelines for deployed models
+
+### Next Steps for Advanced Deployment
+
+1. **Implement Model Registry** for centralized model management and versioning
+2. **Add CI/CD Pipeline** for automated model testing and deployment
+3. **Create Custom Monitoring** dashboards for model performance tracking
+4. **Implement A/B Testing** framework for model comparison in production
+5. **Add Security Scanning** for model vulnerabilities and compliance
+6. **Build Multi-model Endpoints** for efficient resource utilization
+
+This foundation provides essential knowledge for deploying open-source models in production environments, with clear paths for scaling to enterprise-grade MLOps practices.
 
 ## 🔧 DevOps Best Practices
 
