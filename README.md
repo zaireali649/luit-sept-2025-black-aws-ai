@@ -18,6 +18,7 @@
 - [Week 1 ML Fundamentals & Assessment](#week-1-ml-fundamentals--assessment)
 - [Week 2 MLOps & DevOps Concepts](#week-2-mlops--devops-concepts)
 - [Week 3 AWS Bedrock & Prompt Engineering](#week-3-aws-bedrock--prompt-engineering)
+- [Week 4 Hugging Face & Open-Source AI Models](#week-4-hugging-face--open-source-ai-models)
 - [DevOps Best Practices](#devops-best-practices)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
@@ -194,11 +195,14 @@ luit-sept-2025-black-aws-ai/
 │   ├── simple_prompt.txt            # Basic prompt example
 │   ├── complex_prompt.txt           # Advanced prompt example
 │   └── flower_data.json             # Generated dataset of US state flowers
-└── caip_04_01/                       # Week 4, Call 1 materials
+├── caip_04_01/                       # Week 4, Call 1 materials
     ├── caip_week4_call1.ipynb       # Deploying Hugging Face models to SageMaker
     ├── caip_week4_call1.pdf         # Reference materials
     └── cf_templates/                # CloudFormation templates
-        └── sagemaker_infra.yaml     # SageMaker infrastructure setup
+└── caip_04_02/                       # Week 4, Call 2 materials
+    ├── caip_week4_call2.ipynb       # Conversational AI with DialoGPT
+    ├── local_dialoGPT_chatbot.py    # Local chatbot implementation
+    └── requirements.txt             # Python dependencies
 ```
 
 ## 🗺️ Learning Path
@@ -352,6 +356,38 @@ luit-sept-2025-black-aws-ai/
   - Tested sentiment analysis with various text inputs and edge cases
   - Implemented proper cleanup procedures for cost management
   - Explored production MLOps patterns and DevOps practices
+
+### Week 4: Hugging Face & Open-Source AI Models
+
+#### Call 1: Deploying Open Models the Right Way ✅ *Completed*
+- 📓 [`caip_04_01/caip_week4_call1.ipynb`](caip_04_01/caip_week4_call1.ipynb)
+- **Topics Covered:**
+  - Hugging Face ecosystem and model hub navigation
+  - SageMaker HuggingFaceModel class for managed deployment
+  - Infrastructure setup with CloudFormation templates
+  - Real-time sentiment analysis with DistilBERT model
+  - Production deployment patterns and cost management
+  - Model testing and validation with edge cases
+- **Hands-on Experience:**
+  - Deployed DistilBERT model to SageMaker endpoint
+  - Built automated infrastructure with CloudFormation
+  - Tested sentiment analysis with various text inputs
+  - Implemented proper cleanup and cost management
+
+#### Call 2: From 🤗 to Chatbot ✅ *Completed*
+- 📓 [`caip_04_02/caip_week4_call2.ipynb`](caip_04_02/caip_week4_call2.ipynb)
+- **Topics Covered:**
+  - Conversational AI with DialoGPT model
+  - Local development and testing with transformers library
+  - Multi-turn dialogue and conversation history management
+  - Production architecture decisions and cost considerations
+  - Content moderation and safety considerations
+  - Deployment options: local vs cloud vs managed services
+- **Hands-on Experience:**
+  - Built interactive chatbot with DialoGPT-medium
+  - Implemented conversation history and context management
+  - Tested model behavior with various conversation patterns
+  - Explored production deployment strategies and cost models
 
 ### Future Sessions
 *Content will be added as sessions are completed*
@@ -856,51 +892,117 @@ Example:
 
 This foundation provides essential knowledge for working with AWS Bedrock and implementing production-ready AI applications with proper cost management and prompt engineering techniques.
 
-## 🤗 Week 4 Open Source Models & Production Deployment
+## 🤗 Week 4 Hugging Face & Open-Source AI Models
 
-### Overview of Open Source Model Deployment
+### Overview of Hugging Face Implementation
 
-Week 4 introduced students to the open-source machine learning ecosystem, focusing on Hugging Face as the primary hub for pre-trained models and SageMaker as the deployment platform. The session demonstrated how to bridge open-source innovation with enterprise-grade infrastructure.
+Week 4 introduced students to Hugging Face, the leading open-source platform for machine learning models, and demonstrated how to deploy and use open-source AI models in production environments. The sessions covered both cloud deployment with SageMaker and local development with conversational AI.
 
-### Hugging Face Ecosystem Integration
+### Hugging Face Ecosystem & Platform
 
 **What We Implemented:**
-- **Model Hub Navigation**: Understanding the structure and organization of Hugging Face Hub
-- **Model Selection Criteria**: Choosing appropriate models based on task requirements and performance
-- **Community Models**: Leveraging community-contributed models for production use cases
-- **Model Metadata**: Reading and interpreting model cards, performance metrics, and usage guidelines
+- **Hugging Face Hub**: Access to thousands of pre-trained models for various tasks
+- **Transformers Library**: Python library for using state-of-the-art deep learning models
+- **Model Selection**: Understanding different model types and their applications
+- **Community Integration**: Leveraging open-source models and community contributions
 
-**Key Components Covered:**
-- **Models Hub**: Thousands of pre-trained models for text, vision, and audio tasks
-- **Datasets**: Benchmark and real-world datasets for training and evaluation
-- **Spaces**: Interactive web applications for testing and demonstrating models
-- **Transformers Library**: Python library for loading and using pre-trained models
+**Key Platform Components:**
+- **Models Hub**: Massive library of pre-trained models for sentiment analysis, translation, summarization, Q&A, image classification, audio transcription
+- **Datasets**: Benchmark and real-world datasets for training, testing, and evaluation
+- **Spaces**: Interactive AI web apps built with Gradio or Streamlit
+- **Transformers Library**: Simple APIs for loading models, tokenizers, and pipelines
 
-### SageMaker Hugging Face Integration
+### Hugging Face vs Amazon Bedrock Comparison
 
-#### **Managed Deployment Benefits:**
-- **No Docker Required**: Use pre-built containers optimized for Hugging Face models
-- **Automatic Model Loading**: SageMaker automatically downloads models from the Hub
-- **Scalable Infrastructure**: Managed endpoints with auto-scaling capabilities
-- **Cost Optimization**: Pay-per-use pricing with automatic resource management
+#### **When to Use Each Platform:**
 
-#### **HuggingFaceModel Class Features:**
-```python
-# Deployment Configuration
-hub_config = {
-    'HF_MODEL_ID': 'distilbert-base-uncased-finetuned-sst-2-english',
-    'HF_TASK': 'text-classification'
-}
+| Use Case | Bedrock | Hugging Face |
+|----------|---------|--------------|
+| **Managed Security** | ✅ Yes | ❌ You manage IAM + roles |
+| **Plug-and-play UX** | ✅ Playground, no code | ❌ Requires code and SDK |
+| **Bring your own model** | ❌ Not yet supported | ✅ Upload or fine-tune your own |
+| **Community models/open** | ❌ Limited to AWS partners | ✅ Full access to public models |
+| **CI/CD and customization** | 🔶 Limited | ✅ Full flexibility |
 
-# Managed deployment with version control
-huggingface_model = HuggingFaceModel(
-    transformers_version='4.26',
-    pytorch_version='1.13',
-    py_version='py39',
-    env=hub_config,
-    role=execution_role
-)
-```
+### Cloud Deployment with SageMaker (caip_04_01)
+
+#### **Infrastructure Setup:**
+- **CloudFormation Templates**: Automated infrastructure provisioning
+- **SageMaker Studio Domain**: Cloud-based notebook environment
+- **IAM Execution Role**: Proper permissions for S3 and SageMaker
+- **S3 Bucket**: Dedicated storage for model artifacts
+
+#### **Model Deployment Process:**
+- **Model Selection**: `distilbert-base-uncased-finetuned-sst-2-english` for sentiment analysis
+- **HuggingFaceModel Class**: Deploy models without custom Docker images
+- **Prebuilt Containers**: SageMaker-managed containers with Transformers support
+- **Real-time Endpoints**: Managed inference endpoints with automatic scaling
+
+#### **Production Implementation:**
+- **Boto3 Integration**: Programmatic endpoint invocation
+- **JSON Payload Format**: Structured input/output for API calls
+- **Error Handling**: Proper exception handling and response parsing
+- **Cost Management**: Endpoint cleanup to avoid ongoing charges
+
+#### **Key Implementation Files:**
+- **CloudFormation Template**: Infrastructure as Code setup
+- **SageMaker Deployment**: HuggingFaceModel configuration and deployment
+- **Endpoint Invocation**: Boto3 client for real-time inference
+- **Cleanup Scripts**: Automated resource deletion
+
+### Local Development & Conversational AI (caip_04_02)
+
+#### **DialoGPT Implementation:**
+- **Model**: `microsoft/DialoGPT-medium` for conversational AI
+- **Local Loading**: Using transformers library for local inference
+- **Conversation History**: Multi-turn dialogue with context maintenance
+- **Interactive Loop**: Real-time chatbot with user input handling
+
+#### **Technical Implementation:**
+- **Tokenization**: Proper text encoding and decoding
+- **Attention Masks**: Context management for coherent responses
+- **Generation Parameters**: Temperature, top-k, top-p for response quality
+- **History Management**: Conversation context and reset functionality
+
+#### **Production Considerations:**
+- **Model Behavior**: Understanding limitations and edge cases
+- **Content Moderation**: Safety considerations for open-source models
+- **Cost Architecture**: Comparing local vs cloud deployment costs
+- **Scalability Planning**: When to move from local to cloud deployment
+
+#### **Key Implementation Files:**
+- **`local_dialoGPT_chatbot.py`**: Complete conversational AI implementation
+- **`requirements.txt`**: Dependencies for local development
+- **Interactive Loop**: Real-time chatbot with conversation history
+- **Context Management**: Multi-turn dialogue handling
+
+### Business Applications & Use Cases
+
+#### **Real-World Applications:**
+- **Sentiment Analysis**: Product reviews, social media monitoring, customer feedback
+- **Conversational AI**: Customer support chatbots, virtual assistants, interactive applications
+- **Text Classification**: Content moderation, spam detection, document categorization
+- **Multi-modal AI**: Image recognition, audio transcription, video analysis
+
+#### **Production Architecture Options:**
+- **SageMaker + Hugging Face**: Custom models with full control (~$0.05–$1/hr)
+- **Amazon Lex**: Managed NLU-based chatbots (~$4/month for low usage)
+- **Local Development**: Proof of concept and testing
+- **Hybrid Approaches**: Combining multiple deployment strategies
+
+### Model Selection & Evaluation
+
+#### **Model Characteristics:**
+- **DistilBERT**: Lightweight, efficient sentiment analysis model
+- **DialoGPT**: Conversational model fine-tuned from GPT-2
+- **Task-Specific Models**: Specialized models for specific use cases
+- **General-Purpose Models**: Versatile models for multiple tasks
+
+#### **Evaluation Considerations:**
+- **Performance Metrics**: Accuracy, latency, throughput
+- **Resource Requirements**: Memory, compute, storage needs
+- **Model Size**: Trade-offs between performance and efficiency
+- **Licensing**: Commercial vs research use restrictions
 
 ### Real-World Model Testing & Validation
 
@@ -1026,7 +1128,33 @@ huggingface_model = HuggingFaceModel(
 5. **Add Security Scanning** for model vulnerabilities and compliance
 6. **Build Multi-model Endpoints** for efficient resource utilization
 
-This foundation provides essential knowledge for deploying open-source models in production environments, with clear paths for scaling to enterprise-grade MLOps practices.
+### Additional Topics We Could Have Discussed
+
+#### **Advanced Model Techniques:**
+- **Fine-tuning**: Customizing pre-trained models for specific domains
+- **Model Compression**: Quantization and pruning for efficiency
+- **Ensemble Methods**: Combining multiple models for better performance
+- **Transfer Learning**: Leveraging pre-trained models for new tasks
+
+#### **Production Scaling:**
+- **Model Serving**: High-throughput inference architectures
+- **Load Balancing**: Distributing requests across multiple instances
+- **Caching Strategies**: Response caching for improved performance
+- **Edge Deployment**: Running models closer to users
+
+#### **Security & Compliance:**
+- **Model Security**: Protecting against adversarial attacks
+- **Data Privacy**: GDPR compliance and data protection
+- **Content Moderation**: Automated content filtering and safety
+- **Audit Trails**: Comprehensive logging and compliance reporting
+
+#### **Advanced Integrations:**
+- **Multi-modal Models**: Combining text, image, and audio processing
+- **Real-time Streaming**: Processing continuous data streams
+- **Federated Learning**: Training models across distributed data
+- **Edge Computing**: Deploying models on IoT devices
+
+This foundation provides essential knowledge for working with open-source AI models and implementing production-ready AI applications using Hugging Face and AWS services.
 
 ## 🔧 DevOps Best Practices
 
@@ -1135,12 +1263,192 @@ export AWS_DEFAULT_REGION=us-east-1
 
 ---
 
+## 🎯 AWS Certified AI Practitioner Exam Preparation
+
+### Exam Overview
+The AWS Certified AI Practitioner exam validates your ability to:
+- **Understand AI/ML concepts** and their business applications
+- **Design AI/ML solutions** using AWS services
+- **Implement AI/ML workflows** with proper security and governance
+- **Monitor and maintain** AI/ML systems in production
+
+### Key Exam Domains & How This Repository Prepares You
+
+#### **Domain 1: AI/ML Problem Formulation (20%)**
+**What We Covered:**
+- ✅ **Week 1**: AI vs ML vs DL vs GenAI distinctions
+- ✅ **Week 1**: Supervised vs unsupervised learning
+- ✅ **Week 1**: Classification vs regression problems
+- ✅ **Week 1**: Model evaluation metrics and business impact
+- ✅ **Week 3**: Business use cases for LLMs across industries
+
+**Exam Focus Areas:**
+- Business problem identification and AI/ML solution mapping
+- Data requirements and quality considerations
+- Success metrics and evaluation criteria
+- Ethical considerations and bias detection
+
+#### **Domain 2: Data Preparation and Feature Engineering (25%)**
+**What We Covered:**
+- ✅ **Week 1**: Data preprocessing and cleaning techniques
+- ✅ **Week 2**: Feature engineering in SageMaker training scripts
+- ✅ **Week 2**: Data validation and quality checks
+- ✅ **Week 4**: Model input/output formatting and validation
+
+**Exam Focus Areas:**
+- Data collection, cleaning, and preprocessing
+- Feature selection and engineering techniques
+- Data quality assessment and validation
+- Data privacy and security considerations
+
+#### **Domain 3: Model Training and Tuning (25%)**
+**What We Covered:**
+- ✅ **Week 1**: Model training concepts and evaluation
+- ✅ **Week 2**: SageMaker training jobs and hyperparameter tuning
+- ✅ **Week 2**: Model evaluation and performance metrics
+- ✅ **Week 3**: Prompt engineering and model parameter tuning
+- ✅ **Week 4**: Open-source model selection and deployment
+
+**Exam Focus Areas:**
+- Training data preparation and model selection
+- Hyperparameter tuning and optimization
+- Model evaluation and validation techniques
+- Transfer learning and fine-tuning strategies
+
+#### **Domain 4: Model Deployment and Operations (30%)**
+**What We Covered:**
+- ✅ **Week 2**: SageMaker endpoint deployment and management
+- ✅ **Week 2**: Real-time and batch inference patterns
+- ✅ **Week 3**: AWS Bedrock deployment and cost management
+- ✅ **Week 4**: Hugging Face model deployment on SageMaker
+- ✅ **Week 4**: Production architecture decisions and scaling
+
+**Exam Focus Areas:**
+- Model deployment strategies and patterns
+- Monitoring, logging, and alerting
+- Cost optimization and resource management
+- Security, compliance, and governance
+
+### Production-Ready AI/ML Skills You've Developed
+
+#### **Technical Skills:**
+- **AWS Services**: SageMaker, Bedrock, S3, IAM, CloudFormation, CloudWatch
+- **Programming**: Python, boto3, transformers library, scikit-learn
+- **Infrastructure**: Infrastructure as Code, containerization, CI/CD
+- **Monitoring**: CloudWatch logs and metrics, performance tracking
+
+#### **Business Skills:**
+- **Cost Management**: Token pricing, endpoint costs, resource optimization
+- **Security**: IAM roles, data encryption, access control
+- **Scalability**: Auto-scaling, load balancing, performance optimization
+- **Governance**: Model versioning, audit trails, compliance
+
+#### **MLOps Practices:**
+- **Model Lifecycle**: Training, validation, deployment, monitoring
+- **Automation**: CI/CD pipelines, automated testing, deployment
+- **Quality Assurance**: Model validation, A/B testing, rollback strategies
+- **Documentation**: Model cards, deployment guides, troubleshooting
+
+### Exam Preparation Strategy
+
+#### **1. Review Repository Content (2-3 weeks)**
+- **Week 1**: Master ML fundamentals and evaluation metrics
+- **Week 2**: Understand SageMaker deployment patterns and MLOps
+- **Week 3**: Learn Bedrock capabilities and prompt engineering
+- **Week 4**: Practice with Hugging Face and open-source models
+
+#### **2. Hands-On Practice (2-3 weeks)**
+- **Recreate all notebooks** from scratch
+- **Build your own projects** using the patterns learned
+- **Experiment with different models** and deployment strategies
+- **Practice cost optimization** and monitoring setup
+
+#### **3. Exam-Specific Preparation (1-2 weeks)**
+- **AWS Exam Readiness Course**: Take the official AWS course
+- **Practice Exams**: Use AWS practice tests and third-party resources
+- **Review AWS Documentation**: Focus on service limits and best practices
+- **Study Exam Guide**: Understand question formats and scoring
+
+### Career Path Recommendations
+
+#### **Immediate Next Steps (0-6 months):**
+1. **Complete AWS AI Practitioner Certification**
+2. **Build Portfolio Projects** using repository patterns
+3. **Apply for AI/ML Engineer roles** with focus on deployment
+4. **Join AI/ML communities** and contribute to open-source projects
+
+#### **Medium-term Goals (6-18 months):**
+1. **Gain Production Experience** with real-world AI/ML systems
+2. **Learn Advanced MLOps** tools (Kubeflow, MLflow, Weights & Biases)
+3. **Specialize in Domain** (NLP, Computer Vision, or specific industry)
+4. **Consider AWS Machine Learning Specialty** certification
+
+#### **Long-term Career Development (18+ months):**
+1. **Lead AI/ML Teams** and architecture decisions
+2. **Contribute to Open Source** and speak at conferences
+3. **Mentor Others** and share knowledge
+4. **Stay Current** with latest AI/ML trends and technologies
+
+### Industry Insights & Market Trends
+
+#### **High-Demand Skills:**
+- **MLOps Engineering**: Deploying and maintaining ML systems
+- **Prompt Engineering**: Optimizing LLM interactions
+- **Model Optimization**: Reducing costs and improving performance
+- **AI Ethics**: Ensuring responsible AI deployment
+
+#### **Salary Expectations (US Market):**
+- **AI/ML Engineer**: $120k - $200k+ (varies by location and experience)
+- **MLOps Engineer**: $130k - $220k+ (high demand, specialized role)
+- **AI Solutions Architect**: $150k - $250k+ (senior-level position)
+- **AI Product Manager**: $140k - $200k+ (business-focused role)
+
+#### **Growth Opportunities:**
+- **AI/ML market** is growing 20-30% annually
+- **Enterprise adoption** of AI is accelerating
+- **Regulatory requirements** creating compliance opportunities
+- **Edge AI** and IoT integration expanding rapidly
+
+### Final Recommendations
+
+#### **For Exam Success:**
+1. **Focus on AWS Services**: Understand SageMaker, Bedrock, and related services deeply
+2. **Practice Hands-On**: Don't just read - build and deploy models
+3. **Understand Business Context**: Know when and why to use different approaches
+4. **Study Cost Optimization**: AWS exams heavily focus on cost-effective solutions
+
+#### **For Career Success:**
+1. **Build a Strong Portfolio**: Showcase your projects and deployments
+2. **Network Actively**: Join AI/ML communities and attend meetups
+3. **Stay Current**: AI/ML evolves rapidly - continuous learning is essential
+4. **Think Production**: Always consider scalability, security, and cost
+
+#### **Key Takeaways from This Repository:**
+- **Start Simple**: Begin with managed services (Bedrock, SageMaker) before custom solutions
+- **Cost Matters**: Always consider cost implications of your AI/ML decisions
+- **Security First**: Implement proper IAM, encryption, and access controls
+- **Monitor Everything**: Set up comprehensive logging and monitoring from day one
+- **Automate Everything**: Use Infrastructure as Code and CI/CD for all deployments
+
+---
+
 ## 🏷️ Tags
 
 `aws` `ai` `machine-learning` `certification` `python` `jupyter` `devops` `mlops` `education` `hands-on-learning`
 
 ---
 
-**Happy Learning! 🚀**
+**Congratulations on completing this comprehensive AI/ML learning journey! 🎉**
+
+You now have the knowledge and hands-on experience to:
+- ✅ **Pass the AWS Certified AI Practitioner exam**
+- ✅ **Build production-ready AI/ML systems**
+- ✅ **Make informed decisions about AI/ML architecture**
+- ✅ **Optimize costs and performance in production**
+- ✅ **Navigate the rapidly evolving AI/ML landscape**
+
+**Remember**: The AI/ML field is constantly evolving. Keep learning, keep building, and keep pushing the boundaries of what's possible with AI!
+
+**Happy Learning and Good Luck! 🚀**
 
 *For questions or support, please reach out to the course instructors or use the course discussion forums.*
